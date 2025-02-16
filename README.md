@@ -19,12 +19,11 @@ _Материали от семинари и практикуми на груп�
     </tr>
     <tr>
       <td rowspan="2" style="border-bottom: none;">Практикум</td>
-      <td rowspan="2" style="border-bottom: none;">Сряда, 13:15 - 15:00, зала 217</td>
+      <td rowspan="2" style="border-bottom: none;" >Сряда, 13:15 - 15:00, зала 217</td>
     </tr>
     <tr></tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td colspan="2" style="border-top: none;"></td>
       <td style="font-weight: bold">Серхан Чавдарлиев</td>
       <td>serhi1827@gmail.com</td>
     </tr>
