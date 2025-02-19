@@ -1,5 +1,7 @@
 ### **Задача 1**
+
 Оправете следния код:
+
 ```c++
 struct Person
 {
@@ -24,9 +26,13 @@ int main()
     std::cout << personRef.age;
 }
 ```
+
 # Структури
+
 # Задача 2
+
 Пресметнете и проверете чрез оператора `sizeof` колко е големината на следните структури.
+
 ```c++
 struct empty {
 };
@@ -63,11 +69,12 @@ struct test6 {
 	char d;
 };
 ```
+
 ```c++
 struct A
 {
 	double c;
-	char b; 
+	char b;
 };
 struct B
 {
@@ -79,6 +86,7 @@ struct C
 	B obj2;
 };
 ```
+
 ```c++
 struct A
 {
