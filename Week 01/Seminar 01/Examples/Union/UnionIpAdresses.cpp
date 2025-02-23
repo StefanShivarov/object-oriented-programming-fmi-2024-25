@@ -2,6 +2,13 @@
 using namespace std;
 union IpAddress
 {
+	/*
+		This union allows us to represent an IPv4 address in two different ways:
+
+		As a single 32-bit integer (uint32_t address).
+		As four separate bytes (unsigned char octets[4]).
+		This allows you to interpret the same memory as either a whole number or as individual octets of an IP address.
+	*/
 	uint32_t address;
 	unsigned char octets[4];
 };
@@ -16,5 +23,4 @@ int main()
 		<< (int)myAddress.octets[1] << "."
 		<< (int)myAddress.octets[2] << "."
 		<< (int)myAddress.octets[3];
-
 }
