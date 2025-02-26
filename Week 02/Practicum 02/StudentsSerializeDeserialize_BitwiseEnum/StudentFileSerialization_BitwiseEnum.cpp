@@ -7,7 +7,6 @@ using std::endl;
 using std::cout;
 constexpr int MAX_NAME_LENGTH = 100;
 constexpr char DELIM = '|';
-constexpr int BUFFER_SIZE = 1024;
 typedef unsigned char byte;
 enum class Electives : byte {
 	OOPPRAKT = 1<<0, 
@@ -46,7 +45,7 @@ void serializeDatabase(const char* filename, const StudentDB& db) {
 Student deserializeStudent(std::ifstream& ifs) {
 	Student st;
 	ifs.ignore();
-	ifs.getline(st.name, BUFFER_SIZE, DELIM);
+	ifs.getline(st.name, MAX_NAME_LENGTH, DELIM);
 	ifs >> st.fn;
 	ifs.ignore();
 	st.elective = ifs.get();
