@@ -94,7 +94,6 @@ void printElective(const Student& st) {
 		byte mask = 1 << i;
 		if (mask & st.elective) {
 			cout << " " << byteToElective(mask);
-			cout << " ";
 		}
 	}
 }
