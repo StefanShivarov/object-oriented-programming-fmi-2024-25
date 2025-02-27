@@ -27,12 +27,8 @@ void sereializeStudent(std::ofstream& ofs,const Student& st) {
 	ofs << st.name << DELIM << st.fn << DELIM << st.elective;
 	ofs << endl;
 }
-void serializeDatabase(const char* filename, const StudentDB& db) {
+void serializeDatabase(std::ofstream& ofs, const StudentDB& db) {
 
-	std::ofstream ofs(filename);
-	if (!ofs.is_open()) {
-		return;
-	}
 	ofs << db.studentSize;
 	ofs << endl;
 	for (int i = 0; i < db.studentSize; i++) {
@@ -49,11 +45,8 @@ Student deserializeStudent(std::ifstream& ifs) {
 	st.elective = ifs.get();
 	return st;
 }
-StudentDB deserializeStudentDB(const char* filename) {
-	std::ifstream ifs(filename);
-	if (!ifs.is_open()) {
-		return {};
-	}
+StudentDB deserializeStudentDB(std::ifstream& ifs) {
+
 	StudentDB db;
 	ifs >> db.studentSize;
 	for (int i = 0; i < db.studentSize; i++) {
@@ -108,6 +101,10 @@ void printDatabase(const StudentDB& db) {
 int main()
 {
 	{
+		std::ofstream ofs("studentsFile.txt");
+		if (!ofs.is_open()) {
+			return -1;
+		}
 		StudentDB db = {
 			{
 				{"kiril petkov",123},
@@ -120,13 +117,18 @@ int main()
 		addElective(db.student[0], Electives::UPPRAKT);
 		addElective(db.student[1], Electives::Java);
 		addElective(db.student[1], Electives::IO);
-		serializeDatabase("studentsFile.txt", db);
+		serializeDatabase(ofs, db);
 
-	}
+	}// calls  ofs.close()
 	{
-		StudentDB db = deserializeStudentDB("studentsFile.txt");
+		std::ifstream ifs("studentsFile.txt");
+		if (!ifs.is_open()) {
+			return -1;
+
+		}
+		StudentDB db = deserializeStudentDB(ifs);
 		cout << db.studentSize<<endl;
 		printDatabase(db);
-	}
+	}// calls  ifs.close()
 }
 
