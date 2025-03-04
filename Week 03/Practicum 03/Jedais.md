@@ -11,14 +11,15 @@
 - Тип - SINGLEBLADED, DOUBLE_BLADED, CROSSGUARD
 
 Да се напише структура *JediCollection*, която да  може да пази в себе си най-много 100 джедая и техния брой. Да се реализира следния набор от функции:
+**Където има скоби трябва да прецените какви типове трябва да приемат функциите и да връщат, къде трябва да е const къде по референция и т.н**
+- `(Джедай)` createJedi(`(НИЗ)`name, `(Цяло естествено число)` age, `(Цяло естествено число)` power, `(LightSaber)` saber) – създава нов джедай с подадените параметри. Да се реализира overload, приемащ създаден цвят и тип на лазер
+- void addJedi(`(Колекция от Джедаи)` collection, `(Джедай)` jedi) – добавя джедай в подадената колекция
+- void removeJedi(`(Колекция от Джедаи)` collection, `(НИЗ)`name) – премахва джедая с подаденото име от колекцията
+- void printJediCollection(`(Колекция от Джедаи)` collection) – принтира подадената колекция
+- void saveCollectionToBinary(`(НИЗ)` fileName, `(Колекция от Джедаи)`collection) – запазва колекцията в подадения двоичен файл
+- `(Колекция от Джедаи)` readCollectionFromBinary(`(НИЗ)` fileName) – прочита и създава колекция, записана в двоичен файл
+- void saveCollectionToTxt(`(НИЗ)` fileName, `(Колекция от Джедаи)`collection) – запазва колекцията в подадения текстов файл
 
-- Jedi createJedi(const char* name, unsigned age, unsigned power, const LightSaber& saber) – създава нов джедай с подадените параметри. Да се реализира overload, приемащ създаден цвят и тип на лазер
-- void addJedi(JediCollection& collection, const Jedi& jedi) – добавя джедай в подадената колекция
-- void removeJedi(JediCollection& collection, const char* name) – премахва джедая с подаденото име от колекцията
-- void printJediCollection(const JediCollection& collection) – принтира подадената колекция
-- void saveCollectionToBinary(const char* fileName, const JediCollection& collection) – запазва колекцията в подадения двоичен файл
-- JediCollection readCollectionFromBinary(const char* fileName) – прочита и създава колекция, записана в двоичен файл
-- void saveCollectionToTxt(const char* fileName, const JediCollection& collection) – запазва колекцията в подадения текстов файл
-- JediCollection readCollectionFromTxt(const char* fileName) – прочита и създава колекция, записана в текстов файл
-- void sortByAge(JediCollection& collection) – сортира колекция във възходящ ред по възраст
-- void sortByPower(JediCollection& collection) – сортира колекция във възходящ ред по сила
+- `(Колекция от Джедаи)`  readCollectionFromTxt(`(НИЗ)` fileName) – прочита и създава колекция, записана в текстов файл
+- void sortByAge(`(Колекция от Джедаи)` collection) – сортира колекция във възходящ ред по възраст
+- void sortByPower(`(Колекция от Джедаи)` collection) – сортира колекция във възходящ ред по сила
