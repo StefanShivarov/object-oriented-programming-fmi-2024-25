@@ -61,6 +61,7 @@ const char * printColor(const Color& color) {
 	if (color == Color::RED) {
 		return "RED";
 	}
+	return "UNKNOWN";
 	
 }
 const char* printType(const Type& type) {
@@ -73,6 +74,7 @@ const char* printType(const Type& type) {
 	if (type == Type::DOUBLE_BLADED) {
 		return "DOUBLE_BLADED";
 	}
+	return "UNKNOWN";
 }
 void printLightSaber(const LightSaber& saber) {
 	cout << printColor(saber.color)<<" ";
@@ -93,6 +95,7 @@ int findJediIndex(const JediCollection& collection, const char* name) {
 }
 void removeJedi(JediCollection& collection, const char* name) {
 	int index = findJediIndex(collection, name);
+	if (index == -1) return;
 	for (int i = index + 1; i < collection.jediSize; i++) {
 		collection.jedies[i - 1] = collection.jedies[i];
 	}
@@ -118,12 +121,13 @@ void saveCollectionToBinary(const char* fileName, const JediCollection& collecti
 	
 }
 JediCollection readCollectionFromBinary(const char* fileName) {
-	std::ifstream ifs(fileName);
+	std::ifstream ifs(fileName,std::ios::binary);
 	if (!ifs.is_open()) {
 		return {};
 	}
 	JediCollection jd;
 	ifs.read((char*)&jd, sizeof(JediCollection));
+	return jd;
 }
 void saveLightSaber(std::ofstream& ofs, const LightSaber& saber) {
 	ofs << (int)saber.color << DELIM;
