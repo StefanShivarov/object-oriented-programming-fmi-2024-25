@@ -62,6 +62,8 @@ Solo-Leveling 2023 25
 
 **Тази структура НЕ пази никакви покемони в себе си! Тя работи само с предоставения двоичен файл.**
 
+**`Disclaimer:` Може да приемате във функциите директно fstream& И да работите с него, Идеята е да не пазите в програмата масив от покемони а да работите изцяло със файла като масив**
+
 Напишете следните функции:
 - ```c++
   PokemonHandler newPokemonHandler(const char* filename)
@@ -69,32 +71,44 @@ Solo-Leveling 2023 25
   тази функция създава ```PokemonHandler``` от двоичен файл
 - ```c++
   int size(const PokemonHandler &ph)
+  OR
+  int size(std::fstream& file)
   ```
   връща размера на колекцията от покемони
 - ```c++
   Pokemon at(const PokemonHandler &ph, int i)
+  OR
+  Pokemon at(std::fstream& file, int i)
   ```
   връщаща покемонът намиращ се на ```i-ти``` индекс (погрижете се дали тази индекс е валиден)
 - ```c++
   void swap(const PokemonHandler &ph, int i, int j)
+  OR
+  void swap(std::fstream& file, int i, int j)
   ```
   разменя покемоните на индекси ```i``` и ```j``` (валидирайте коректността на индексите). Идеята е да я ползвате като помощна функция
 - ```c++
   void insert(const PokemonHandler &ph, const Pokemon &pokemon)
+  OR
+  void insert(std::fstream& file, const Pokemon &pokemon)
   ```
   добавя покемон в наредената ни колекция
 - ```c++
   void textify(const PokemonHandler &ph, const char* filename)
+  OR
+  void textify(std::fstream& file, const char* filename)
   ```
   записва цялата колекция в текстов файл с име ```filename```
 - ```c++
   void untextify(const PokemonHandler &ph, const char* filename)
+  OR
+  void untextify(std::fstream& file, const char* filename)
   ```
   зарежда колекция от текстов файл ```filename```. Очаква се да се изтрие всичко, което сме имали до сега в ```PokemonHandler```
 
 Демонстрирайте в ```main()``` как работи програмата ви, тоест всички функции от ```PokemonHandler``` е достатъчно понеже те включват в себе си ```Pokemon```. Изборът е ваш за формата на текстовия файл използван от ```textify``` и ```untextify```, той трябва да ви е удобен за лесно четене и писане. За демонстрацията вероятно ще използвате често функцията на ```Pokemon``` за четене от стандартния вход на покемон.
 
-**Замислете се как ще разбирате колко елемента има в един двоичен файл с покемони, понеже ```PokemonHandler``` знае единствено името на файла**
+**Замислете се как ще разбирате колко елемента има в един двоичен файл с покемони, понеже ```PokemonHandler``` знае единствено името на файла или потока**
 
 
 ## БОНУС:
