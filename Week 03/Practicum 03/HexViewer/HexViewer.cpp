@@ -73,7 +73,7 @@ void changeByteAtIndex(const char* filename, int index, char ch) {
 }
 int main() {
 	//changeByteAtIndex("students.dat", 1, 'f');
-	HexViewer hex = init("students.dat");
+	HexViewer hex = init("students.dat"); // use any binary file you have written to and check it out with the hex viewer
 
 	print(hex);
 	freeHexViewer(hex);
