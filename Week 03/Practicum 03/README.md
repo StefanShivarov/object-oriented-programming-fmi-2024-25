@@ -71,37 +71,37 @@ Solo-Leveling 2023 25
   тази функция създава ```PokemonHandler``` от двоичен файл
 - ```c++
   int size(const PokemonHandler &ph)
-  OR
+  //OR
   int size(std::fstream& file)
   ```
   връща размера на колекцията от покемони
 - ```c++
   Pokemon at(const PokemonHandler &ph, int i)
-  OR
+  //OR
   Pokemon at(std::fstream& file, int i)
   ```
   връщаща покемонът намиращ се на ```i-ти``` индекс (погрижете се дали тази индекс е валиден)
 - ```c++
   void swap(const PokemonHandler &ph, int i, int j)
-  OR
+  //OR
   void swap(std::fstream& file, int i, int j)
   ```
   разменя покемоните на индекси ```i``` и ```j``` (валидирайте коректността на индексите). Идеята е да я ползвате като помощна функция
 - ```c++
   void insert(const PokemonHandler &ph, const Pokemon &pokemon)
-  OR
+  //OR
   void insert(std::fstream& file, const Pokemon &pokemon)
   ```
   добавя покемон в наредената ни колекция
 - ```c++
   void textify(const PokemonHandler &ph, const char* filename)
-  OR
+  //OR
   void textify(std::fstream& file, const char* filename)
   ```
   записва цялата колекция в текстов файл с име ```filename```
 - ```c++
   void untextify(const PokemonHandler &ph, const char* filename)
-  OR
+  //OR
   void untextify(std::fstream& file, const char* filename)
   ```
   зарежда колекция от текстов файл ```filename```. Очаква се да се изтрие всичко, което сме имали до сега в ```PokemonHandler```
