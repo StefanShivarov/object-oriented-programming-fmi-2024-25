@@ -100,7 +100,7 @@ Solo-Leveling 2023 25
   ```
   записва цялата колекция в текстов файл с име ```filename```
 - ```c++
-  void untextify(const PokemonHandler &ph, const char* filename)
+  void untextify(PokemonHandler &ph, const char* filename)
   //OR
   void untextify(std::fstream& file, const char* filename)
   ```
