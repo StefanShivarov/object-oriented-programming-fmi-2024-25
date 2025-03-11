@@ -36,6 +36,7 @@ public:
  6. Задължително трябва да имаме конструктор и деструктор в класа;
  7. Ако си напишем конструктор с параметри, то дефолтния конструктор се запазва;
  8. Ако си напишем конструктор с параметри, то за да ползваме дефолтния конструктор трябва да напишем и него.
+ 9. Ако си напишем констуктор с параметри, то тогава можем да създаваме масив от дадения клас.
 
 
 ### **Задача 4** Посочете грешките в кода:
@@ -368,8 +369,9 @@ int main() {
 ```
 **Възможни отговори:**
 - а) 5.43
-- б) undefined
-- в) няма да се компилира
+- b) 4.43
+- c) undefined
+- d) няма да се компилира
 
 ---
 
@@ -413,26 +415,26 @@ int main() {
 class A {
     int a;
 public:
-    A() { std::cout << "Default constructor of A\n"; }
+    A() { std::cout << "A()\n"; }
     A(int a) : a(a) {}
-    ~A() { std::cout << "Destructor of A\n"; }
+    ~A() { std::cout << "~A()\n"; }
 };
 
 class B {
     int b;
     A a;
 public:
-    B() { std::cout << "Default constructor of B\n"; }
+    B() { std::cout << "B()\n"; }
     B(int b) : b(b) {}
-    ~B() { std::cout << "Destructor of B\n"; }
+    ~B() { std::cout << "~B()\n"; }
 };
 
 class C {
     A a;
     B b;
 public:
-    C() : b(), a() { std::cout << "Default constructor of C\n"; }
-    ~C() { std::cout << "Destructor of C\n"; }
+    C() : b(), a() { std::cout << "C()\n"; }
+    ~C() { std::cout << "~C()\n"; }
 };
 
 int main() {
