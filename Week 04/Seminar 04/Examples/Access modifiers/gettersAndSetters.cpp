@@ -34,7 +34,6 @@ class Circle {
 private:
     Point center;
     double radius = 5.0;
-    // alternatively you can do an array of points, but 
 
 public:
     Circle() = default;
