@@ -45,7 +45,7 @@ void readFromFile(const char* filename,Test& t) {
         return;
     }
     ifs.getline(data,500);
-    t.data = new char[strlen(data)];
+    t.data = new char[strlen(data)+1];
     strcpy(t.data,data);
     
 }
