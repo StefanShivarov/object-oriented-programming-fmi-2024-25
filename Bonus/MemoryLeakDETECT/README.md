@@ -59,7 +59,7 @@ void readFromFile(const char* filename, Test& t) {
     ifs.getline(data, 500);
     t.data = new char[strlen(data) + 1]; 
     strcpy(t.data, data);
-    delete[] data; // Освобождаване на временно заделената памет
+    //delete[] data; // Освобождаване на временно заделената памет
 }
 
 int main() {
@@ -96,7 +96,7 @@ void readFromFile(const char* filename, Test& t) {
     ifs.getline(data, 500);
     t.data = new char[strlen(data)+1];
     strcpy(t.data, data);
-
+    // Липсва `delete[] data;` тук
 }
 
 int main() {
