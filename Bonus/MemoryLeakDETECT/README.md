@@ -117,4 +117,4 @@ int main() {
 
 🟢 **Поправено:** Вижте, че **_Process Memory (MB)_** остава стабилна, което означава, че паметта се освобождава правилно.
 ### ✅ No Memory Leak (Fixed Code)
-![No Memory Leak](./NoMemoryLeak.png)
+![No Memory Leak](./NomemoryLeak.png)
