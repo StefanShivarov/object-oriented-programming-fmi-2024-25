@@ -51,7 +51,7 @@ void Event::setEndTime(const Time& endTime) {
 }
 
 void Event::validateTimes() {
-    if (compare(startTime, endTime) <= -1) {
+    if (compare(startTime, endTime) >= -1) {
         std::swap(startTime, endTime);
     }
 }
