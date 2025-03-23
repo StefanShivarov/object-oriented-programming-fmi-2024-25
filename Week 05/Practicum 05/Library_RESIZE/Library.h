@@ -8,7 +8,7 @@ class Library
 
 	void resize(int cap);
 	void shiftLeft(int index);
-	int findIndex(const char* name);
+	int findIndex(const char* name) const;
 public:
 	Library();
 	void addBook(const Book& book);
