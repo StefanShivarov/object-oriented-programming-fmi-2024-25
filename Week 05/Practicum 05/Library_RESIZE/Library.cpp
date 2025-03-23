@@ -18,7 +18,7 @@ void Library::shiftLeft(int index)
 	}
 }
 
-int Library::findIndex(const char* name)
+int Library::findIndex(const char* name) const
 {
 	for (int i = 0; i < size; i++) {
 		if (strcmp(books[i].getName(), name) == 0) {
