@@ -11,4 +11,4 @@
 ---
 
 ### [Headers in C++](https://youtu.be/9RJTQmK0YPI?si=D_eEvnbrFzXDXshR)
-[![Headers in C++](https://i.ytimg.com/vi/9RJTQmK0YPI/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDhue5NtnUI39n4j37f2D-6Q4h5jQ)](https://youtu.be/9RJTQmK0YPI?si=D_eEvnbrFzXDXshR)
+[![Headers in C++](https://i.ytimg.com/vi/9RJTQmK0YPI/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCOzbCBJkLRagWkMvKfH6ckAzwmiQ)](https://youtu.be/9RJTQmK0YPI?si=D_eEvnbrFzXDXshR)
