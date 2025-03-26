@@ -27,7 +27,7 @@ int main() {
 		for (int i = 0; i < 5; i++) {
 			delete students[i];
 		}
-		//delete[] students;
+		delete[] students;
 		delete[] grades;
 	}
 	
