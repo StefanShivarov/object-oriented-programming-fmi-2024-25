@@ -27,5 +27,3 @@ public:
 
 	void setName(const char*) const;  
 };
-
-//ten mistakes at all - 10x 0.1 = 1 point
