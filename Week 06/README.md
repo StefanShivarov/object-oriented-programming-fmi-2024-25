@@ -87,9 +87,9 @@ int main() {
 ### Собствена имплементация на функциите за копиране и деструктора
 
 ```c++
-struct Person
-{
-	Person(const char* name, int age) : name(nullptr), age(age) {
+class Person {
+public:
+	Person(const char* name, int age) {
 		setName(name);
 		setAge(age);
 	}
@@ -99,20 +99,36 @@ struct Person
 	}
 
 	Person& operator=(const Person& other) {
-		if (this != &other) {
-			free(); //трием
+		if (this != &other) { // проверяваме дали other не сочи към същият обект в паметта като this (например person1 = person1), защото тогава, ако изтрием данните не можем да копираме отново от същия обект. В такъв случай искаме просто да не правим нищо и да върнем референция към текущия обект
+			free(); //зачистваме динамично заделената памет преди копиране
 			copyFrom(other); //копираме
 		}
 		return *this;
 	}
 
 	~Person() {
-		free(); //трием
+		free(); //зачистваме динамично заделената памет
 	}
 
-	.
-	.
-	.
+private:
+    char* name = nullptr;
+    int age;
+    // ...
+
+    void free() {
+        delete[] name;
+        name = nullptr;
+        // ...
+    }
+    void copyFrom(const Person& other) {
+        // няма нужда да трием тук, понеже разчитаме, че когато трябва free() функцията ще е извикана преди copyFrom
+        if (other.name != nullptr) {
+            name = new char[strlen(other.name) + 1];
+            strcpy(name, other.name);
+        }
+        age = other.age;
+        // ...
+    }
 };
 ```
 
