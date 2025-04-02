@@ -76,11 +76,12 @@ void Student::setGrades(double* grades, size_t gradesCount) {
         return;
     }
     delete[] this->grades;
-    this->grades = new double[closestPowerOfTwo(gradesCount)];
+    this->gradesCapacity = closestPowerOfTwo(gradesCount);
+    this->gradesCount = gradesCount;    
+    this->grades = new double[this->gradesCapacity];
     for (size_t i = 0; i < gradesCount; i++) {
         this->grades[i] = grades[i];
     }
-    this->gradesCount = gradesCount;
 }
 
 size_t Student::getGradesCount() const {
