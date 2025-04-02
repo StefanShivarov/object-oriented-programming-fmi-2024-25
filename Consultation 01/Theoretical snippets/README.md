@@ -105,10 +105,10 @@ struct Person {
         strcpy(name, newName);
     }
     Person(const Person&) = delete;
-    void save() const {
+    void save(std::ofstream& ofs) const {
         // 
     }
-    void read() {
+    void read(std::ifstream& ifs) {
         //
     }
 };
@@ -132,18 +132,17 @@ struct Person {
         strcpy(name,newName);
     }
     Person(const Person&) = delete;
-    void save(){
-        std::ofstream ofs("person.dat", std::ios::binary);
+
+    void save(std::ofstream& ofs){
         ofs.write((const char*)this, sizeof(Person));
     }
-    void read() {
-        std::ifstream ifs("person.dat", std::ios::binary);
+    void read(std::ifstream& ifs) {
         ifs.read((char*)this,sizeof(Person))
     }
 };
 int main() {
     Person p1(2,"Serho");
-    p.save();
+    p1.save();
 
     Person p2;
     p2.read();
@@ -331,6 +330,8 @@ int main() {
 class Person {
 private:
     char* name;
+    int* grades;
+    int size;
 
 public:
     Person(const char* n) {
@@ -340,6 +341,10 @@ public:
 
     void print() const {
         std::cout << "Name: " << name << std::endl;
+    }
+    ~Person() {
+        delete[] name;
+        delete[] grades;
     }
 };
 
