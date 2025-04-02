@@ -44,7 +44,7 @@ Bitset::Bitset() : Bitset(64) {}
 
 Bitset::Bitset(unsigned max) {
     bytesCount = max / BITS_IN_BYTE + 1;
-    bytes = new unsigned char[bytesCount]{};
+    this->bytes = new unsigned char[bytesCount]{};
 }
 
 Bitset::Bitset(const Bitset& other) {
@@ -75,6 +75,12 @@ void Bitset::add(unsigned num) {
         resize(byteIndex + 1);
     }
 
+    if (contains(num)) {
+        return;
+    }
+
+    maxNum = std::max(maxNum, num);
+    size++;
     bytes[byteIndex] |= mask;
 }
 
@@ -86,6 +92,10 @@ void Bitset::remove(unsigned num) {
         return;
     }
 
+    if (!contains(num)) {
+        return;
+    }
+    size--;
     bytes[byteIndex] &= ~mask;
 }
 
@@ -100,14 +110,19 @@ bool Bitset::contains(unsigned num) const {
     return bytes[byteIndex] & mask;
 }
 
+void Bitset::deserialize(std::istream& is) {
+    unsigned num = 0;
+    while (is >> num) {
+        add(num);
+    }
+}
+
 void Bitset::serialize(std::ostream& os) const {
-    os << "{ ";
     for (size_t i = 0; i < bytesCount * BITS_IN_BYTE; i++) {
         if (contains(i)) {
             os << i << " ";
         }
     }
-    os << '}';
 }
 
 void Bitset::reset() {
@@ -115,4 +130,27 @@ void Bitset::reset() {
     for (size_t i = 0; i < bytesCount; i++) {
         bytes[i] = '\0';
     }
+}
+
+Bitset unionOfBitsets(const Bitset& lhs, const Bitset& rhs) {
+    Bitset result(std::max(lhs.maxNum, rhs.maxNum));
+    size_t commonBytesCount = std::min(lhs.bytesCount, rhs.bytesCount);
+    for (size_t i = 0; i < commonBytesCount; i++) {
+        result.bytes[i] = lhs.bytes[i] | rhs.bytes[i];
+    }
+
+    const Bitset& largerSet = lhs.maxNum > rhs.maxNum ? lhs : rhs;
+    unsigned largerBytesCount = largerSet.bytesCount;
+    for (size_t i = commonBytesCount; i < largerBytesCount; i++) {
+        result.bytes[i] = largerSet.bytes[i];
+    }
+    return result;
+}
+
+Bitset intersectionOfBitsets(const Bitset& lhs, const Bitset& rhs) {
+    Bitset result(std::min(lhs.maxNum, rhs.maxNum));
+    unsigned minBucketsCount = std::min(lhs.bytesCount, rhs.bytesCount);
+    for (int i = 0; i < minBucketsCount; i++)
+        result.bytes[i] = lhs.bytes[i] & rhs.bytes[i];
+    return result;
 }
