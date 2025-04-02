@@ -31,7 +31,6 @@ struct C
 
 ```
 
- // failove pregovor - seminar
 
 **Задача 3.** Отворили сте файл в режим за четене със следното съдържание:
 
@@ -56,7 +55,6 @@ symbol = file.get();
 std::cout << symbol << std::endl;
 ```
 
-//stringstream pregovor
 **Задача 4.** Какво ще се изпринти на конзолата:
 ```c++
 #include <iostream>
@@ -86,7 +84,6 @@ int main() {
 
 ```
 
-// pregovor dvoichni primeri ot seminar
 
 **Задача 5:** Пазене на структура със статични данни във двоичен
 ```c++
