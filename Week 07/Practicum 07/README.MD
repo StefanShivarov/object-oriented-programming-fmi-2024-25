@@ -59,10 +59,10 @@
 - `NVector& calculate(const NVector& other, int(*operation)(int, int))`  
   Изпълнява универсално аритметично действие между два вектора. Използва се във `+=` и `-=`.
 
-- `void saveToFile(const char* filename) const`  
+- `void saveToFile(std::ofstream& ofs) const`  
   Записва текущия вектор в двоичен файл (първо размера, след това елементите).
 
-- `void loadFromFile(const char* filename)`  
+- `void loadFromFile(std::ifstream& ifs)`  
   Зарежда вектор от двоичен файл и заменя текущото съдържание.
 
 ---
