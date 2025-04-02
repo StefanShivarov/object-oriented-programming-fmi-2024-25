@@ -44,7 +44,7 @@ void ArrayWrapper::deserialize(std::istream& is)
 {
 	is >> size;
 	if (size >= capacity) {
-		resize(size * 2);
+		resize(size + 1);
 	}
 	for (size_t i = 0; i < size; i++) {
 		is >> arr[i];
