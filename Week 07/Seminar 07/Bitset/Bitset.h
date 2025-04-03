@@ -26,7 +26,7 @@ public:
     friend Bitset unionOfBitsets(const Bitset& lhs, const Bitset& rhs);
     friend Bitset intersectionOfBitsets(const Bitset& lhs, const Bitset& rhs);
 private:
-    unsigned char* bytes = nullptr;
+    unsigned char* bytes = nullptr; // we can also use uint8_t instead of unsigned char
     size_t bytesCount = 0;
     size_t size = 0;
     unsigned maxNum = 0;

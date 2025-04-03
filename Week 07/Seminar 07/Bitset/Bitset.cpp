@@ -42,7 +42,7 @@ void Bitset::free() {
 
 Bitset::Bitset() : Bitset(64) {}
 
-Bitset::Bitset(unsigned max) {
+Bitset::Bitset(unsigned max) : maxNum(max) {
     bytesCount = max / BITS_IN_BYTE + 1;
     this->bytes = new unsigned char[bytesCount]{};
 }
