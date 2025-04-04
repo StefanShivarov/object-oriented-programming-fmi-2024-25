@@ -35,8 +35,11 @@ int Polynom::getCharCount(std::ifstream& ifs,char ch) const
     size_t currentPos = ifs.tellg();
 
     int counter = 0;
-    while (!ifs.eof()) {
+    while (true) {
         char currentCh = ifs.get();
+        if (ifs.eof()) {
+            break;
+        }
         if (currentCh == ch) {
             counter++;
         }
@@ -116,10 +119,10 @@ void Polynom::print() const
             isFirst = true;
         }
         else if (i != 0) {
-            cout <<"+"<< arr[i] << "*x^" << i;
+            cout <<" + "<< arr[i] << "*x^" << i;
         }
         else {
-            cout << "+" << arr[i];
+            cout << " + " << arr[i];
         }
         
     }
