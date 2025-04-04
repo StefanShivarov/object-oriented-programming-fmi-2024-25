@@ -93,7 +93,7 @@ void Polynom::load(const char* fileName)
     if (!fileName) {
         return;
     }
-    std::ifstream ifs("file.txt");
+    std::ifstream ifs(fileName);
     if (!ifs.is_open()) {
         return;
     }
