@@ -46,9 +46,9 @@ MyVector operator-(const MyVector& lhs, const MyVector& rhs);
 MyVector operator*(const MyVector& lhs, int scalar);
 MyVector operator*(int scalar,const MyVector& lhs);
 
-//skalarno
+//scalar product
 int operator%(const MyVector& lhs, const MyVector& rhs);
-//perpendikulqr
+//perpendicular
 bool operator|(const MyVector& lhs, const MyVector& rhs);
-//usporedni
+//parallel
 bool operator||(const MyVector& lhs, const MyVector& rhs);
