@@ -29,7 +29,6 @@ private:
     void resize(size_t newAllocatedDataCapacity);
     void free();
     void copyFrom(const MyString& other);
-    void moveFrom(MyString&& other);
 
     char* data = nullptr;
     size_t currentSize = 0;
