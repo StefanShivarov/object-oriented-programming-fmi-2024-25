@@ -5,7 +5,6 @@ class Grade {
 	int randomStuff[50000];
 };
 
-// imagine we are not using any collections and strings
 class Student {
 private:
 	char* userName = nullptr;
