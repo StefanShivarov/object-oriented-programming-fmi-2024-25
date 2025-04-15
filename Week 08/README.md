@@ -242,17 +242,7 @@ void myFunc() noexcept {
 
 ---
 
-**Пример с безопасно хващане (`noexcept` + try/catch):**
 
-```cpp
-void f() noexcept {
-    try {
-        throw std::runtime_error("safe");
-    } catch (...) {
-        std::cerr << "Caught inside noexcept\n";
-    }
-}
-```
 
 **Защо се ползва noexcept?**
 - Оптимизации от компилатора
