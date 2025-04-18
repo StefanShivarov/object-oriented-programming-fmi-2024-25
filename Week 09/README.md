@@ -358,6 +358,19 @@ std::string lString = "Pesho";
 print(lString);  //Takes an lvalue, first function
 print("Ivan");   //Takes an rvalue as a parameter, hence the second function will be instantiated
 ```
+| lvalue                           | prvalue                          | xvalue                               |
+| -------------------------------- | -------------------------------- | ------------------------------------ |
+| променливи                       | литерали                         | обекти към края на жизнения си цикъл |
+| функции, които връщат референция | функции, които връщат копие      |                                      |
+| постоянен адрес                  |                                  |                                      |
+
+Кога функция приема ``lvalue`` и ``rvalue``
+```c++
+f(X obj);        // lvalue и rvalue
+g(X& ref);       // lvalue
+h(const X& obj); // lvalue и rvalue
+t(X&& obj);      // rvalue
+```
 ---
 ### Move конструктор & Move Assignment оператор
 
@@ -388,6 +401,86 @@ Person& operator=(Person&& other) noexcept {
 }
 ```
 
+### Move конструктор (М.К)
+
+- Член-функция, която за параметър приема обект от същия клас **(rvalue reference)**, като текущият "краде" неговите данни **(текущият не е съществувал)**
+
+```c++
+struct X
+{
+        Y y;
+        Z z;
+
+        X(X&& other) noexcept :
+                y(std::move(other.y)),
+                z(std::move(other.z)) {}
+}
+```
+
+### Move оператор= (М.ОП=)
+
+- Член-функция, която за параметър приема обект от същия клас **(rvalue reference)**, като текущият вече съществува и "краде" неговите данни
+
+```c++
+struct X
+{
+        Y y;
+        Z z;
+
+        X& operator=(X&& other) noexcept :
+                if (this != &other)
+                {
+                        y = std::move(other.y);
+                        z = std::move(other.z);
+                }
+
+                return *this;
+        }
+}
+```
+
+### Извикване на move конструктори / деструктори
+
+```c++
+f(X&& ref);
+g(X obj);
+
+{
+        X obj; // X()
+        f(std::move(obj)); // нищо
+        g(std::move(obj)); // М.К X(), ~X()
+} // ~X()
+```
+
+```c++
+{
+        String s1 = "ABC"; // String(const char*)
+        String s2(std::move(s1)); // M.K String()
+        String s3;
+        s3 = std::move(s2); // М.ОП= String()
+}
+```
+
+### std::move
+
+- Преобразува: **lvalue => xvalue**
+- Индикира, че обектът няма да се използва извън рамките на функцията
+
+### Добавяне на елементи към колекция
+
+```c++
+add(const X& obj)
+{
+        this->data[this->size++] = obj;
+}
+
+add(X&& obj)
+{
+        this->data[this->size++] = std::move(obj);
+}
+```
+- В рамките на функцията `X&&` се разглежда като **lvalue** и затова трябва да използваме `std::move`
+
 ---
 ### Синтезирани move операции
 - Както и при копи конструктура, copy assignment оператора и деструктура, компилаторът автоматично ще синтезира move конструктор и move assignment оператор. <br />
@@ -397,3 +490,10 @@ Person& operator=(Person&& other) noexcept {
 - Компилаторът ще създаде move конструктор и move assignment оператор ако класът няма дефиниран copy control и ако всеки член може да бъде "преместен". <br />
 - Компилаторът може да премества вградени типове, а също и класове, които имат съответната move операция дефинирана. При примитивните типове данни местенето е просто копиране. <br />
 - Aко експлицитно помолим компилатора да генерира move операция чрез `=default`, и компилаторът не успее да синтезира такъв, то той бива маркиран като `=delete`.
+
+### Голяма шестица
+
+- Default конструктор
+- Копиращ конструктор и Move конструктор
+- Оператор= и Move оператор=
+- Деструктор
