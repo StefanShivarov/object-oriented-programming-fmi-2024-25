@@ -60,7 +60,7 @@ size_t ClassOfStudents::findFirstFreeIndex() const
 
 ClassOfStudents::ClassOfStudents()
 {
-	students = new Student * [capacity] {};
+	students = new Student*[capacity] {};
 }
 
 ClassOfStudents::ClassOfStudents(const ClassOfStudents& other)
@@ -111,24 +111,34 @@ void ClassOfStudents::addStudents(Student&& st)
 	insertAt(std::move(st), index);
 }
 
-void ClassOfStudents::insertAt(const Student& st, int index)
+void ClassOfStudents::insertAt(const Student& st, size_t index)
 {
+	if (index >= capacity) {
+		resize(index);
+	}
 	if (students[index] == nullptr) {
 		students[index] = new Student(st);
 		size++;
 	}
 	else {
+		// copy op=
+		// more optimal than deleting and creating new object
 		*students[index] = st;
 	}
 }
 
-void ClassOfStudents::insertAt(Student&& st, int index)
+void ClassOfStudents::insertAt(Student&& st, size_t index)
 {
+	if (index >= capacity) {
+		resize(index);
+	}
 	if (students[index] == nullptr) {
 		students[index] = new Student(std::move(st));
 		size++;
 	}
 	else {
+		// move assignment operator
+		// more optimal than deleting and creating new object
 		*students[index] = std::move(st);
 	}
 }
@@ -167,6 +177,7 @@ size_t ClassOfStudents::getSize() const
 
 void ClassOfStudents::swap(int i, int j)
 {
+	// swaping pointers only!!
 	Student* temp = students[i];
 	students[i] = students[j];
 	students[j] = temp;
