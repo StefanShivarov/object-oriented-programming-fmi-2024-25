@@ -3,10 +3,10 @@
 class StringView
 {
 	const char* begin;
-	const char* end;
+	const char* end; //1 element after the final char;
 
 public:
-
+	StringView() = default;
 	StringView(const char* _begin, const char* _end);
 	StringView(const char* str);
 	StringView(const MyString& str);
@@ -18,7 +18,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const StringView& st);
 
-
-
 };
+bool operator==(const StringView& lhs, const StringView& rhs);
+bool operator!=(const StringView& lhs, const StringView& rhs);
 
