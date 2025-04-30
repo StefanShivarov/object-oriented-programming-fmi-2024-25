@@ -21,14 +21,12 @@ private:
 	}
 
 	void copyFrom(const Matrix& other) {
+		rows = other.rows;
+		cols = other.cols;
 		this->matrix = new int* [other.rows];
 		for (int i = 0; i < other.rows; i++){
 			this->matrix[i] = new int[other.cols];
-		}
-		rows = other.rows;
-		cols = other.cols;
-		for (int i = 0; i < rows; i++)		{
-			for (int j = 0; j < cols; j++){
+			for (int j = 0; j < other.cols; j++){
 				matrix[i][j] = other.matrix[i][j];
 			}
 		}
