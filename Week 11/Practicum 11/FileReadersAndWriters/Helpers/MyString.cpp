@@ -138,8 +138,12 @@ char MyString::operator[](size_t index) const
 
 MyString MyString::substr(size_t from, size_t length) const
 {
-    if (from + length > currentSize) {
+    if (from >= currentSize) {
         throw std::exception("Invalid length");
+    }
+    if (from + length > currentSize) {
+        length = currentSize - from; // when length is given incorrect
+        //throw std::exception("Invalid length");
     }
     MyString res(length);
     strncpy(res.data, data + from, length);
