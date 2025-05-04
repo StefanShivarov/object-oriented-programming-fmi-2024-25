@@ -8,14 +8,14 @@
 class Base {
 public:
     void f() const  {
-        std::cout << "A::f()\n";
+        std::cout << "Base::f()\n";
     }
 };
 
 class Derived : public Base {
 public:
     void f() const {
-        std::cout << "B::f()\n";
+        std::cout << "Derived::f()\n";
     }
 };
 
@@ -42,14 +42,14 @@ int main() {
 class Base {
 public:
     virtual void f() const {
-        std::cout << "A::f()\n";
+        std::cout << "Base::f()\n";
     }
 };
 
 class Derived : public Base {
 public:
     void f() const override {
-        std::cout << "B::f()\n";
+        std::cout << "Derived::f()\n";
     }
 };
 
@@ -127,7 +127,7 @@ public:
     }
 };
 
-class ThirdDerived : public SecondDrived {
+class ThirdDerived : public SecondDerived {
 public:
     void h() const override {
         std::cout << "ThirdDerived::h()\n";
@@ -139,35 +139,36 @@ public:
 
 ```c++
 int main() {
-   Base baseObject;
-   FirstDerived firstDerivedOject;
-   SecondDerived secondDerivedObject;
-   ThirdDerived thirdDerivedObject;
+    Base baseObject;
+    FirstDerived firstDerivedOject;
+    SecondDerived secondDerivedObject;
+    ThirdDerived thirdDerivedObject;
 
-   Base* p = nullptr;
+    Base* p = nullptr;
 
-   p = &baseObject;
-   p->f(); //static call to Base::f()
-   p->g(); //static call to Base::gl()
-   p->nonVirtual();  //static call to Base::nonVirtual()
+    p = &baseObject;
 
-   std::cout << "----------" << std::endl;
+    p->f(); //static call to Base::f()
+    p->g(); //static call to Base::g()
+    p->nonVirtual();  //static call to Base::nonVirtual()
 
-   p = &firstDerivedOject;
-   p->f(); // Dynamic binding - FirstDerived::f()
-   p->g(); // Dynamic binding - FirstDerived::g()
+    std::cout << "----------" << std::endl;
 
-   std::cout << "----------" << std::endl;
+    p = &firstDerivedOject;
+    p->f(); // Dynamic binding - FirstDerived::f()
+    p->g(); // Dynamic binding - FirstDerived::g()
 
-   p = &secondDerivedObject;
-   p->f(); // Dynamic binding - SecondDerived::f()
-   p->g(); // Dynamic binding - SecondDerived::g()
+    std::cout << "----------" << std::endl;
 
-   std::cout << "----------" << std::endl;
+    p = &secondDerivedObject;
+    p->f(); // Dynamic binding - SecondDerived::f()
+    p->g(); // Dynamic binding - FirstDerived::g()
 
-   p = &thirdDerivedObject;
-   p->f(); // Dynamic binding - ThirdDerived::f()
-   p->g(); // Dynamic binding - ThirdDerived::g()
+    std::cout << "----------" << std::endl;
+
+    p = &thirdDerivedObject;
+    p->f(); // Dynamic binding - SecondDerived::f()
+    p->g(); // Dynamic binding - FirstDerived::g()
 }
 ```
 
