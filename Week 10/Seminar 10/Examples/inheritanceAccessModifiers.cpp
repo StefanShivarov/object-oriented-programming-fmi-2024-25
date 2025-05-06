@@ -10,12 +10,12 @@ private:
 class A : public Base {
     // x is public
     // y is protected
-    // z is private
+    // no acces to z ( z is private in Base)
 };
 
 class B : protected Base {
     // x is protected
-    // y is private
+    // y is protected
     // no access to z :(
 };
 
