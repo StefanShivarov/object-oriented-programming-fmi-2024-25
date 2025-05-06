@@ -8,7 +8,7 @@ public:
 
     virtual void visitFile(File *) = 0;
     virtual void visitDirectory(Directory*) = 0;
-    virtual ~Visitor() = 0;
+    virtual ~Visitor() = default;
 };
 class FileSystem {
 protected:
@@ -21,7 +21,7 @@ public:
         return name;
     }
     virtual void accept(Visitor* v)=0;
-    virtual ~FileSystem() = 0;
+    virtual ~FileSystem() = default;
 };
 
 class File : public FileSystem {
@@ -39,7 +39,8 @@ public:
     FileSystem** children;
     int size = 0;
     int capacity = 8;
-
+    // !!!not good encapsulation
+    // !!!missing stuff here
     void accept(Visitor* v) override {
         v->visitDirectory(this);
     }
