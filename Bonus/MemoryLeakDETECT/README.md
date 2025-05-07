@@ -73,6 +73,7 @@ int main() {
 #### Стартирайта програмта в DEBUG режим (RUN-ETE Кода)
 #### Натисните на <u>output</u> долу до <u>Error List</u>
 ### ❌ Memory Leak Detected
+
 ![Memory Leak Detected](./MemoryLeakDetect2.png)
 
 ### ✅ No Memory Leak (Fixed Code)
