@@ -244,6 +244,52 @@ int main() {
 }
 
 ```
+### Пример 2:
+![alt_text](https://i.ibb.co/zGscdZ9/Multiple-Inheritance.png)
+
+### Конструктори и деструктори при множествено наследяване:
+```c++
+struct MyClass : SuperClass1, SuperClass2, SuperClass3, SuperClass4
+{
+	MyClass()
+	{
+		std::cout << "MyClass()" << std::endl;
+	}
+	~MyClass()
+	{
+		std::cout << "~MyClass()" << std::endl;
+	}
+};
+
+int main()
+{
+	MyClass obj;
+}
+```
+
+![alt_text](https://i.ibb.co/82xJ2JK/Constr-destr-Mult-Inh.png)
+
+### Копиране при множествено наследяване:
+```c++
+MyClass(const MyClass& other) : SuperClass1(other), SuperClass2(other), SuperClass3(other), SuperClass4(other)
+{
+	copyFrom(other);
+}
+
+MyClass(const MyClass& other)
+{
+	if (this != &other)
+	{
+		SuperClass1::operator=(other);
+		SuperClass2::operator=(other);
+		SuperClass3::operator=(other);
+		SuperClass4::operator=(other);
+
+		free();
+		copyFrom(other);
+	}
+}
+```
 
 ---
 
