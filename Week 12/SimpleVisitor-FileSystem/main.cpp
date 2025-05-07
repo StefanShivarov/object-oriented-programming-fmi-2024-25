@@ -2,13 +2,16 @@
 
 #include <iostream>
 #include "MyString.h"
+class File;
+class Directory;
 
 class Visitor {
-public:
 
-    virtual void visitFile(File *) = 0;
-    virtual void visitDirectory(Directory*) = 0;
+public:
+    virtual void visitFile(const File* f) const = 0;
+    virtual void visitDirectory(const Directory* dir) const = 0;
     virtual ~Visitor() = default;
+
 };
 class FileSystem {
 protected:
@@ -20,50 +23,61 @@ public:
     const MyString& getName() const {
         return name;
     }
-    virtual void accept(Visitor* v)=0;
+    virtual void accept(const Visitor* v) const = 0;
     virtual ~FileSystem() = default;
 };
-
 class File : public FileSystem {
-    
-    void accept(Visitor* v) override
+public:
+    File(const MyString& name) : FileSystem(name) {
+
+    }
+    void accept(const Visitor* v) const override
     {
         v->visitFile(this);
     }
+
 };
+
 class Directory : public FileSystem {
+
 public:
-    Directory(const MyString& name) : FileSystem(name) {
-        
-    }
     FileSystem** children;
     int size = 0;
     int capacity = 8;
+    Directory(const MyString& name) :FileSystem(name) {
+        children = new FileSystem * [capacity];
+    }
     // !!!not good encapsulation
-    // !!!missing stuff here
-    void accept(Visitor* v) override {
+   // !!!missing stuff here
+    void accept(const Visitor* v) const override
+    {
         v->visitDirectory(this);
     }
-
 };
-class FileSystemVisitor : public Visitor {
+class FileSystemVisitor :public Visitor {
 
 public:
-    void visitFile(File* f) override {
-        cout << f->getName();
+    void visitFile(const File* f) const override {
+        cout << f->getName()<<endl;
     }
 
-    void visitDirectory(Directory* dir) override {
-        cout << dir->getName();
-        for (int i = 0; i < dir->size; i++)
+
+    // Inherited via Visitor
+    void visitDirectory(const Directory* d) const override
+    {
+        cout << d->getName()<<endl;
+        for (int i = 0; i < d->size; i++)
         {
-            dir->children[i]->accept(this);
+            d->children[i]->accept(this);
         }
+
     }
+
 };
 int main()
 {
-    FileSystem* f = new Directory("src/");
+    Directory* f = new Directory("src/");
+    f->children[f->size++] = new File("myFile.txt");
     Visitor* v = new FileSystemVisitor();
     f->accept(v);
     delete v;
