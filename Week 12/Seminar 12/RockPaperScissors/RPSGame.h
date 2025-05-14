@@ -17,7 +17,7 @@ public:
     size_t getPlayersCount() const;
     size_t simulateTournament() const;
 private:
-    Player** players{};
+    Player** players = nullptr;
     size_t size = 0;
     size_t capacity = 0;
 
