@@ -29,6 +29,8 @@ private:
     void free();
     void copyFrom(const HeterogeneousContainer& other);
     void moveFrom(HeterogeneousContainer&& other) noexcept;
+
+    int findFirstEmptyIndex() const;
 };
 
 template <typename T>
@@ -44,9 +46,13 @@ void HeterogeneousContainer<T>::free() {
 
 template <typename T>
 void HeterogeneousContainer<T>::copyFrom(const HeterogeneousContainer& other) {
-    data = new T * [other.capacity];
-    for (size_t i = 0; i < other.capacity; i++) { // because you can have empty indexes
-        data[i] = other.data[i]->clone();
+    data = new T * [other.capacity] {};
+    for (size_t i = 0; i < other.capacity; i++) {
+        // because you can have empty indexes
+        if (other.data[i]) {
+            data[i] = other.data[i]->clone();
+        }
+        
     }
     size = other.size;
     capacity = other.capacity;
@@ -59,6 +65,18 @@ void HeterogeneousContainer<T>::moveFrom(HeterogeneousContainer&& other) noexcep
     size = other.size;
     capacity = other.capacity;
     other.size = other.capacity = 0;
+}
+
+template<typename T>
+inline int HeterogeneousContainer<T>::findFirstEmptyIndex() const
+{
+    int insertPos = -1;
+    for (size_t i = 0; i < capacity; ++i)
+        if (data[i] == nullptr) {
+            insertPos = i;
+            break;
+        }
+    return insertPos;
 }
 
 template <typename T>
@@ -128,18 +146,33 @@ void HeterogeneousContainer<T>::resize(size_t newCapacity) {
 
 template <typename T>
 void HeterogeneousContainer<T>::add(T* ptr) {
-    if (size >= capacity) {
-        resize(capacity * 2);
+    int insertPos = findFirstEmptyIndex();
+
+    if (insertPos == -1) {
+
+        if (size >= capacity) {
+            resize(capacity * 2);
+        }
+        insertPos = size;
     }
-    data[size++] = ptr->clone();
+
+    data[insertPos] = ptr->clone();
 }
 
 template <typename T>
 void HeterogeneousContainer<T>::add(const T& obj) {
-    if (size >= capacity) {
-        resize(capacity * 2);
+    // duplicate code can be made better!!
+    int insertPos = findFirstEmptyIndex();
+
+    if (insertPos == -1) {
+
+        if (size >= capacity) {
+            resize(capacity * 2);
+        }
+        insertPos = size;
     }
-    data[size++] = obj.clone();
+    
+    data[insertPos] = obj.clone();
 }
 
 template <typename T>
