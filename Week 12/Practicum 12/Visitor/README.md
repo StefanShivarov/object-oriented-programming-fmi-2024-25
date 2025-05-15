@@ -194,3 +194,5 @@ int main() {
 
 > [!IMPORTANT]
 > Използвайки `accept(visitor)` и `visitor->visitX(this)` ние избираме какво да правим спрямо два типа едновременно - типа на `Client` и типа на `Visitor`. Това позволява да дефинираме различно поведение за всяка комбинация от клиент и операция, без да използваме `if`, `switch` или `dynamic_cast`. Това се нарича `double dispatch`
+>
+credits: github.com/PapaOff
