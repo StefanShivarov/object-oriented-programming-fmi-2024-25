@@ -44,10 +44,12 @@ void HeterogeneousContainer<T>::free() {
 
 template <typename T>
 void HeterogeneousContainer<T>::copyFrom(const HeterogeneousContainer& other) {
-    data = new T*[other.capacity];
-    for (size_t i = 0; i < other.capacity; i++) {
+    data = new T * [other.capacity];
+    for (size_t i = 0; i < other.capacity; i++) { // because you can have empty indexes
         data[i] = other.data[i]->clone();
     }
+    size = other.size;
+    capacity = other.capacity;
 }
 
 template <typename T>
@@ -94,7 +96,7 @@ HeterogeneousContainer<T>::~HeterogeneousContainer() {
 
 template <typename T>
 HeterogeneousContainer<T>::HeterogeneousContainer() : capacity(16) {
-    data = new T*[capacity] {nullptr};
+    data = new T * [capacity] {nullptr};
 }
 
 template <typename T>
@@ -114,7 +116,7 @@ size_t HeterogeneousContainer<T>::getSize() const {
 
 template <typename T>
 void HeterogeneousContainer<T>::resize(size_t newCapacity) {
-    T** resizedData = new T*[newCapacity] {nullptr};
+    T** resizedData = new T * [newCapacity] {nullptr};
     for (size_t i = 0; i < capacity; i++) {
         resizedData[i] = data[i];
         data[i] = nullptr;
@@ -129,7 +131,7 @@ void HeterogeneousContainer<T>::add(T* ptr) {
     if (size >= capacity) {
         resize(capacity * 2);
     }
-    data[size++] = ptr;
+    data[size++] = ptr->clone();
 }
 
 template <typename T>
