@@ -157,6 +157,7 @@ void HeterogeneousContainer<T>::add(T* ptr) {
     }
 
     data[insertPos] = ptr->clone();
+    size++;
 }
 
 template <typename T>
@@ -173,6 +174,7 @@ void HeterogeneousContainer<T>::add(const T& obj) {
     }
     
     data[insertPos] = obj.clone();
+    size++;
 }
 
 template <typename T>
