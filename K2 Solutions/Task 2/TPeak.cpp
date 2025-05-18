@@ -16,7 +16,7 @@ void TPeak::setPeakName(const char* str) {
     }
 
     this->peakName = new char[strlen(str) + 1];
-    strcpy(this->peakName, peakName);
+    strcpy(this->peakName, str);
 }
 
 void TPeak::copyFrom(const TPeak& other) {
