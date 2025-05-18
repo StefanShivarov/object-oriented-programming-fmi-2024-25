@@ -65,7 +65,7 @@ void Peak::setMountainName(const char* str) {
         delete[] mountainName;
     }
 
-    this->mountainName = new char[strlen(mountainName) + 1];
+    this->mountainName = new char[strlen(str) + 1];
     strcpy(this->mountainName, mountainName);
 }
 
