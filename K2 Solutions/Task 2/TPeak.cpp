@@ -15,7 +15,7 @@ void TPeak::setPeakName(const char* str) {
         delete[] peakName;
     }
 
-    this->peakName = new char[strlen(peakName) + 1];
+    this->peakName = new char[strlen(str) + 1];
     strcpy(this->peakName, peakName);
 }
 
