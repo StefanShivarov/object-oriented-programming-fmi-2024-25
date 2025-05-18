@@ -1,5 +1,6 @@
 #include "Peak.h"
 #include <cstring>
+#pragma warning(disable:4996)
 
 void Peak::free() {
     delete[] mountainName;
@@ -62,7 +63,7 @@ void Peak::setMountainName(const char* str) {
     }
 
     if (this->mountainName) {
-        delete[] mountainName;
+        delete[] this->mountainName;
     }
 
     this->mountainName = new char[strlen(str) + 1];

@@ -1,4 +1,5 @@
 #include "TPeak.h"
+#pragma warning(disable:4996)
 
 void TPeak::free() {
     delete[] peakName;
@@ -66,6 +67,6 @@ const char* TPeak::getPeakName() const {
     return peakName;
 }
 
-void TPeak::printPeakName() const override {
+void TPeak::printPeakName() const {
     std::cout << peakName << std::endl;
 }
