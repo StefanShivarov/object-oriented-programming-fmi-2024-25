@@ -66,7 +66,7 @@ void Peak::setMountainName(const char* str) {
     }
 
     this->mountainName = new char[strlen(str) + 1];
-    strcpy(this->mountainName, mountainName);
+    strcpy(this->mountainName, str);
 }
 
 Peak::Peak(double height, const char* mountainName) {
