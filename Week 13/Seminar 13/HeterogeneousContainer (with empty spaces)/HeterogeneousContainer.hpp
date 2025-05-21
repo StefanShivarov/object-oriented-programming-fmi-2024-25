@@ -156,7 +156,7 @@ void HeterogeneousContainer<T>::add(T* ptr) {
         insertPos = size;
     }
 
-    data[insertPos] = ptr->clone();
+    data[insertPos] = ptr;
     size++;
 }
 

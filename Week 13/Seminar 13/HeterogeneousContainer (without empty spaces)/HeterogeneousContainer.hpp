@@ -1,27 +1,18 @@
 #include <iostream>
+
+// heterogeneous container with no empty spaces
 template <class T>
-class Container {
-
-	T** objects;
-	size_t size=0;
-	size_t capacity = 8;
-
-	void resize(size_t newCap);
-	
-	void copyFrom(const Container& other);
-	void moveFrom(Container&& other);
-	void free();
-
+class HeterogeneousContainer {
 public:
-	Container();
-	Container(const Container& other);
-	Container(Container&& other);
+	HeterogeneousContainer();
+	HeterogeneousContainer(const HeterogeneousContainer& other);
+	HeterogeneousContainer(HeterogeneousContainer&& other) noexcept;
 
-	Container<T>& operator=(const Container& other);
-	Container<T>& operator=(Container&& other);
+	HeterogeneousContainer<T>& operator=(const HeterogeneousContainer& other);
+	HeterogeneousContainer<T>& operator=(HeterogeneousContainer&& other) noexcept;
+	~HeterogeneousContainer();
 
 	void addObject(const T& obj);
-	
 	void addObject(T* obj);
 
 	size_t getSize() const;
@@ -30,24 +21,28 @@ public:
 
 	const T* operator[](size_t index) const;
 	T* operator[](size_t index);
-
-	
 	void swap(int i, int j);
 
-	~Container();
+private:
+	T** objects = nullptr;
+	size_t size = 0;
+	size_t capacity = 8;
 
+	void resize(size_t newCap);
 
-
+	void copyFrom(const HeterogeneousContainer& other);
+	void moveFrom(HeterogeneousContainer&& other) noexcept;
+	void free();
 };
 
 template<class T>
-inline size_t Container<T>::getSize() const
+size_t HeterogeneousContainer<T>::getSize() const
 {
 	return size;
 }
 
 template<class T>
-inline void Container<T>::remove(size_t index)
+void HeterogeneousContainer<T>::remove(size_t index)
 {
 	if (index >= size) {
 		throw std::out_of_range("Error index out of range");
@@ -62,7 +57,7 @@ inline void Container<T>::remove(size_t index)
 }
 
 template<class T>
-inline const T* Container<T>::operator[](size_t index) const
+const T* HeterogeneousContainer<T>::operator[](size_t index) const
 {
 	if (index >= size) {
 		throw std::invalid_argument("Wrong index");
@@ -71,7 +66,7 @@ inline const T* Container<T>::operator[](size_t index) const
 }
 
 template<class T>
-inline T* Container<T>::operator[](size_t index)
+T* HeterogeneousContainer<T>::operator[](size_t index)
 {
 	if (index >= size) {
 		throw std::invalid_argument("Wrong index");
@@ -80,19 +75,19 @@ inline T* Container<T>::operator[](size_t index)
 }
 
 template<class T>
-inline void Container<T>::swap(int i, int j)
+void HeterogeneousContainer<T>::swap(int i, int j)
 {
 	std::swap(objects[i], objects[j]);
 }
 
 template<class T>
-inline Container<T>::~Container()
+HeterogeneousContainer<T>::~HeterogeneousContainer()
 {
 	free();
 }
 
 template<class T>
-inline void Container<T>::resize(size_t newCap)
+void HeterogeneousContainer<T>::resize(size_t newCap)
 {
 	T** temp = new T * [newCap] {};
 	for (int i = 0; i < size; i++)
@@ -105,7 +100,7 @@ inline void Container<T>::resize(size_t newCap)
 }
 
 template<class T>
-inline void Container<T>::copyFrom(const Container& other)
+void HeterogeneousContainer<T>::copyFrom(const HeterogeneousContainer& other)
 {
 	size = other.size;
 	capacity = other.capacity;
@@ -117,18 +112,18 @@ inline void Container<T>::copyFrom(const Container& other)
 }
 
 template<class T>
-inline void Container<T>::moveFrom(Container&& other)
+void HeterogeneousContainer<T>::moveFrom(HeterogeneousContainer&& other) noexcept
 {
+	objects = other.objects;
+	other.objects = nullptr;
+
 	size = other.size;
 	capacity = other.capacity;
 	other.size = other.capacity = 0;
-	
-	objects = other.objects;
-	other.objects = nullptr;
 }
 
 template<class T>
-inline void Container<T>::free()
+void HeterogeneousContainer<T>::free()
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -138,25 +133,25 @@ inline void Container<T>::free()
 }
 
 template<class T>
-inline Container<T>::Container()
+HeterogeneousContainer<T>::HeterogeneousContainer()
 {
 	objects = new T * [capacity] {};
 }
 
 template<class T>
-inline Container<T>::Container(const Container& other)
+HeterogeneousContainer<T>::HeterogeneousContainer(const HeterogeneousContainer& other)
 {
 	copyFrom(other);
 }
 
 template<class T>
-inline Container<T>::Container(Container&& other)
+HeterogeneousContainer<T>::HeterogeneousContainer(HeterogeneousContainer&& other) noexcept
 {
 	moveFrom(std::move(other));
 }
 
 template<class T>
-inline Container<T>& Container<T>::operator=(const Container& other)
+HeterogeneousContainer<T>& HeterogeneousContainer<T>::operator=(const HeterogeneousContainer& other)
 {
 	if (this != &other) {
 		free();
@@ -166,7 +161,7 @@ inline Container<T>& Container<T>::operator=(const Container& other)
 }
 
 template<class T>
-inline Container<T>& Container<T>::operator=(Container&& other)
+HeterogeneousContainer<T>& HeterogeneousContainer<T>::operator=(HeterogeneousContainer&& other) noexcept
 {
 	if (this != &other) {
 		free();
@@ -176,7 +171,7 @@ inline Container<T>& Container<T>::operator=(Container&& other)
 }
 
 template<class T>
-inline void Container<T>::addObject(const T& obj)
+void HeterogeneousContainer<T>::addObject(const T& obj)
 {
 	if (size == capacity) {
 		resize(capacity * 2);
@@ -185,13 +180,13 @@ inline void Container<T>::addObject(const T& obj)
 }
 
 template<class T>
-inline void Container<T>::addObject(T* obj)
+void HeterogeneousContainer<T>::addObject(T* ptr)
 {
-	if (!obj) {
+	if (!ptr) {
 		return; // or throw
 	}
 	if (size == capacity) {
 		resize(capacity * 2);
 	}
-	objects[size++] = obj->clone();
+	objects[size++] = ptr;
 }
