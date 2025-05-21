@@ -834,7 +834,7 @@ int main() {
     std::shared_ptr<int> sp = std::make_shared<int>(42);
     std::weak_ptr<int> wp = sp;
 
-    if (auto locked = wp.lock()) {
+    if (std::shared_ptr<int> locked = wp.lock()) {
         std::cout << "Обектът е жив: " << *locked << std::endl;
     } else {
         std::cout << "Обектът е изтрит
