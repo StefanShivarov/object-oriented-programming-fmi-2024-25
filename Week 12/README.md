@@ -360,7 +360,7 @@ C default constructor is called
 Тоест, обектът `obj` има 2 копия на всички данни на базовия клас `SuperClass`, което предизвиква двусмислия/неяснотии (ambiguous behaviour).
 
 ---
-
+### Пример 2
 
 ![diamond_problem](images/diamond_problem.png)
 
