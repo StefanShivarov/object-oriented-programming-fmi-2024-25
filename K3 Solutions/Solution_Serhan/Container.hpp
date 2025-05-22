@@ -14,10 +14,10 @@ class Container {
 public:
 	Container();
 	Container(const Container& other);
-	Container(Container&& other);
+	Container(Container&& other) noexcept;
 
 	Container<T>& operator=(const Container& other);
-	Container<T>& operator=(Container&& other);
+	Container<T>& operator=(Container&& other) noexcept;
 
 	void addObject(const T& obj);
 
