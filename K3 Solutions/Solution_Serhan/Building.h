@@ -30,10 +30,10 @@ protected:
 public:
 	Building(const char* _name);
 	Building(const Building& other);
-	Building(Building&& other);
+	Building(Building&& other) noexcept;
 
 	Building& operator=(const Building& other);
-	Building& operator=(Building&& other);
+	Building& operator=(Building&& other) noexcept;
 
 	size_t getTotalPeopleCount() const;
 	size_t getStudentsCount() const;
