@@ -3,7 +3,7 @@
 template <class T>
 class UniquePointer {
 
-	Ò* data=nullptr;
+	T* data=nullptr;
 
 	void free();
 	void moveFrom(UniquePointer&& other);
