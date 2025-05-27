@@ -1,97 +1,76 @@
-#include <iostream>
+#pragma once
 
 template <class T>
-class UniquePointer {
-
-	T* data=nullptr;
-
-	void free();
-	void moveFrom(UniquePointer&& other);
-
+class UniquePtr {
 public:
-	UniquePointer(T* obj);
-	UniquePointer(const T& other) = delete;
-	UniquePointer(T&& other) noexcept;
+    UniquePtr(T* ptr);
 
-	UniquePointer& operator=(const T& other) = delete;
-	UniquePointer& operator=(T&& other) noexcept;
+    UniquePtr(const UniquePtr& other) = delete;
+    UniquePtr& operator=(const UniquePtr& other) = delete;
 
-	T* operator->();
-	const T* operator->() const;
+    UniquePtr(UniquePtr&& other) noexcept;
+    UniquePtr& operator=(UniquePtr&& other) noexcept;
 
-	T& operator*();
-	const T& operator*() const;
+    ~UniquePtr();
 
-	~UniquePointer();
+    T& operator*();
+    const T& operator*() const;
 
+    T* operator->();
+    const T* operator->() const;
+
+    operator bool() const;
+
+private:
+    T* ptr = nullptr;
 };
 
-template<class T>
-inline void UniquePointer<T>::free()
-{
-	delete data;
+template <class T>
+UniquePtr<T>::UniquePtr(T* ptr) : ptr(ptr) {}
+
+template <class T>
+UniquePtr<T>::UniquePtr(UniquePtr&& other) noexcept {
+    ptr = other.ptr;
+    other.ptr = nullptr;
 }
 
-template<class T>
-inline void UniquePointer<T>::moveFrom(UniquePointer&& other)
-{
-	data = other.data;
-	other.data = nullptr;
+template <class T>
+UniquePtr<T>& UniquePtr<T>::operator=(UniquePtr&& other) noexcept {
+    if (this != &other) {
+        delete ptr;
+        ptr = other.ptr;
+        other.ptr = nullptr;
+    }
+    return *this;
 }
 
-template<class T>
-inline UniquePointer<T>::UniquePointer(T* obj) :data(obj)
-{
+template <class T>
+UniquePtr<T>::~UniquePtr() {
+    delete ptr;
+    ptr = nullptr;
 }
 
-template<class T>
-inline UniquePointer<T>::UniquePointer(T&& other) noexcept
-{
-	moveFrom(std::move(other));
+template <class T>
+T& UniquePtr<T>::operator*() {
+    return *ptr;
 }
 
-template<class T>
-inline UniquePointer<T>& UniquePointer<T>::operator=(T&& other) noexcept
-{
-	if (this != &other) {
-		free();
-		moveFrom(std::move(other));
-	}
-	return *this;
+template <class T>
+const T& UniquePtr<T>::operator*() const {
+    return *ptr;
 }
 
-template<class T>
-inline T* UniquePointer<T>::operator->()
-{
-	return data;
+template <class T>
+T* UniquePtr<T>::operator->() {
+    return ptr;
 }
 
-template<class T>
-inline const T* UniquePointer<T>::operator->() const
-{
-	return data;
+template <class T>
+const T* UniquePtr<T>::operator->() const {
+    return ptr;
 }
 
-template<class T>
-inline T& UniquePointer<T>::operator*()
-{
-	if (data == nullptr) {
-		throw std::invalid_argument("Error data is nullptr");
-	}
-	return *data;
-}
-
-template<class T>
-inline const T& UniquePointer<T>::operator*() const
-{
-	if (data == nullptr) {
-		throw std::invalid_argument("Error data is nullptr");
-	}
-	return *data;
-}
-
-template<class T>
-inline UniquePointer<T>::~UniquePointer()
-{
-	free();
+template <class T>
+UniquePtr<T>::operator bool() const {
+    return ptr != nullptr;
 }
