@@ -74,6 +74,8 @@ void Vector<T>::moveFrom(Vector&& other) noexcept {
     currentCapacity = other.currentCapacity;
     currentSize = other.currentSize;
     other.currentSize = other.currentCapacity = 0;
+    this->searchStrategy= other.searchStrategy;
+    other.searchStrategy=nullptr;
 }
 
 template <typename T>
