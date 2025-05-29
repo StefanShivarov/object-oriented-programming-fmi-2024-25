@@ -1,27 +1,27 @@
-// Strategy.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include "Vector.hpp"
-#include "BinarySearchStrategy.hpp"
+#include "SearchStrategy.hpp"
 #include "LinearSearchStrategy.hpp"
+#include "BinarySearchStrategy.hpp"
 using namespace std;
 int main()
 {
-    Vector<int> arr;
-    arr.pushBack(3);
-    arr.pushBack(5);
-    arr.pushBack(8);
-    arr.pushBack(11);
-    
-    LinearSearchStrategy<int> linear;
-    arr.setStrategy(linear);
-    std::cout << arr.findIndex(2);
-    BinarySerachStrategy<int> binary; // for O(logN) on sorted array!!!
-    arr.setStrategy(binary);
-    std::cout<<arr.findIndex(2);
+	Vector<int> arr;
+	for (int i = 10; i >= 0; i--)
+	{
+		arr.pushBack(i);
+	}
+	LinearSearchStrategy<int> linear;
+	BinarySearchStrategy<int> binary;
 
-    
+
+	arr.setStrategy(linear);
+	cout<<arr.find(4);
+	cout << endl;
+	arr.setStrategy(binary);
+	cout << arr.find(2);
+	cout << endl;
+	//arr.setStrategy(binarySearch)
 }
-
 

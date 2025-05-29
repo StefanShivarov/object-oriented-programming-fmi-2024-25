@@ -1,25 +1,23 @@
+#pragma once
 #include <iostream>
-#include "Vector.hpp"
-#include "Strategy.hpp"
-template <class T>
-class BinarySerachStrategy : public Strategy<T> {
+#include "SearchStrategy.hpp"
+template<class T>
+class BinarySearchStrategy : public SearchStrategy<T> {
 
 public:
 
-	Strategy<T>* clone() const override;
-
-	int execute(const T* arr, int size, const T& target) const override;
-
+	SearchStrategy<T>* clone() const override;
+	int search(const T* arr, int size, const T& target) const override;
 };
 
 template<class T>
-inline Strategy<T>* BinarySerachStrategy<T>::clone() const
+inline SearchStrategy<T>* BinarySearchStrategy<T>::clone() const
 {
-	return new BinarySerachStrategy(*this);
+	return new BinarySearchStrategy<T>(*this);
 }
 
 template<class T>
-inline int BinarySerachStrategy<T>::execute(const T* arr, int size, const T& target) const
+inline int BinarySearchStrategy<T>::search(const T* arr, int size, const T& target) const
 {
 	int left = 0;
 	int right = size - 1;

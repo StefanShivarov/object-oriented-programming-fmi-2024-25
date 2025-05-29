@@ -1,7 +1,7 @@
 #pragma once
 #include <utility>
 #include <exception>
-#include "SearchStrategy.hpp"
+
 // NOTE!: most of the functions are not needed in the class
 // or do not work as in the original std::vector
 // They were created for testing purposes
@@ -14,7 +14,6 @@ private:
 	T* data = nullptr;
 	size_t size = 0;
 	size_t capacity;
-	SearchStrategy<T>* searchStrategy = nullptr;
 	// the resize function of the actual std::vector
 	// just lowers the size, this function is called reserve there
 	void resize(size_t newCapacity);
@@ -23,7 +22,6 @@ private:
 	void assertIndex(size_t index) const;
 	void upsizeIfNeeded();
 	void downsizeIfNeeded();
-
 public:
 
 	Vector();
@@ -34,13 +32,8 @@ public:
 	Vector<T>& operator=(Vector<T>&& other);
 	~Vector();
 
-
 	size_t getSize() const;
 	size_t getCapacity() const;
-
-	int find(const T& obj);
-	void setStrategy(const SearchStrategy<T>& strategy);
-
 
 	// push/pop at do not exist in actual std::vector
 	void pushBack(const T& element);
@@ -107,9 +100,6 @@ Vector<T>::~Vector() {
 	free();
 }
 
-
-
-
 template<typename T>
 void Vector<T>::assertIndex(size_t index) const {
 	if (index >= size) {
@@ -157,20 +147,6 @@ size_t Vector<T>::getSize() const {
 template<typename T>
 size_t Vector<T>::getCapacity() const {
 	return capacity;
-}
-
-//Linear Search
-template<typename T>
-inline int Vector<T>::find(const T& obj)
-{
-	return searchStrategy->search(data, size, obj);
-}
-
-template<typename T>
-inline void Vector<T>::setStrategy(const SearchStrategy<T>& strategy)
-{
-	delete searchStrategy;
-	searchStrategy = strategy.clone();
 }
 
 template<typename T>
@@ -274,13 +250,10 @@ void Vector<T>::move(Vector<T>&& other) {
 	other.data = nullptr;
 	other.size = 0;
 	other.capacity = 0;
-	searchStrategy = other.searchStrategy;
-	other.searchStrategy = nullptr;
 }
 
 template<typename T>
 void Vector<T>::copyFrom(const Vector<T>& other) {
-	this->searchStrategy = other.searchStrategy->clone();
 	size = other.size;
 	capacity = other.capacity;
 	data = new T[capacity];
@@ -292,9 +265,7 @@ void Vector<T>::copyFrom(const Vector<T>& other) {
 
 template<typename T>
 void Vector<T>::free() {
-	delete searchStrategy;
 	delete[] data;
 	data = nullptr;
 	size = capacity = 0;
-	
 }
