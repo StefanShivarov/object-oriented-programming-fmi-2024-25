@@ -97,6 +97,5 @@ public:
 };
 int main() {
     Computer c = Computer::builder(10, 16).setDiskId(3).build();
-    Computer t = c.builder(32, 12).build();
-    cout<<t.toString();
+    cout<<c.tostring();
 }
