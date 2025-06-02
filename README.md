@@ -20,6 +20,7 @@ _Материали от семинари и практикуми на груп�
 | **[12](https://github.com/StefanShivarov/object-oriented-programming-fmi-2024-25/tree/main/Week%2012)** | Колекции от обекти в полиморфна йерархия (хетерогенен контейнер). Копиране, триене, разпознаване и прихващане на полиморфни обекти. Множествено наследяване. Диамантен проблем. Виртуално наследяване. |
 | **[13](https://github.com/StefanShivarov/object-oriented-programming-fmi-2024-25/tree/main/Week%2013)** | Шаблони|
 | **[14](https://github.com/StefanShivarov/object-oriented-programming-fmi-2024-25/tree/main/Week%2014)** | Type Casting и Smart Pointers (Умни указатели) |
+| **[15](https://github.com/StefanShivarov/object-oriented-programming-fmi-2024-25/tree/main/Week%2015)** | Design Patterns |
 
 ## 📅 График на занятията
 
