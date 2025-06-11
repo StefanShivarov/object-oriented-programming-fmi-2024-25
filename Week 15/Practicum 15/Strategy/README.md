@@ -30,7 +30,7 @@ public:
 };
 ```
 
-```
+```c++
 class NewCustomerDiscount : public DiscountStrategy {
 public:
     double calculateDiscount(double total) const override {
