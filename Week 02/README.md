@@ -52,96 +52,6 @@ int main() {
 }
 ```
 
-### Работа с поток за вход от файл ([ifstream](https://en.cppreference.com/w/cpp/io/basic_ifstream))
-
-Пример за четене от файл!
-
-```c++
-#include <iostream>
-#include <fstream>
-
-constexpr char FILE_NAME[] = "myFile.txt";
-
-int main() {
-	std::ifstream file(FILE_NAME); // create input file stream associated with myFile.txt
-
-	if (!file.is_open()) {
-		std::cout << "Error!" << std::endl;
-		return -1;
-	}
-
-	int a, b;
-	file >> a >> b;
-
-	file.close();
-}
-```
-
-Пример за прочитане на цялото съдържание файл:
-
-```c++
-#include <iostream>
-#include <fstream>
-
-constexpr int BUFF_SIZE = 1024;
-constexpr char FILE_NAME[] = "myFile.txt";
-
-int main() {
-	std::ifstream file(FILE_NAME);
-
-	if (!file.is_open()) {
-		std::cout << "Error!" << std::endl;
-		return -1;
-	}
-
-	while (!file.eof()) {
-		char buff[BUFF_SIZE];
-		file.getline(buff, BUFF_SIZE);
-
-		//do something with the line
-		std::cout << buff << std::endl;
-	}
-
-	file.close();
-}
-```
-
-### Работа с поток за изход към файл ([ofstream](https://en.cppreference.com/w/cpp/io/basic_ofstream))
-
-```c++
-#include <iostream>
-#include <fstream>
-
-constexpr char FILE_NAME[] = "myFile.txt";
-
-int main() {
-	std::ofstream file(FILE_NAME);  // create output file stream associated with myFile.txt
-
-	if (!file.is_open()) {
-		std::cout << "Error!" << std::endl;
-		return -1;
-	}
-
-	int a = 3;
-	int b = 10;
-
-	file << a << " " << b << " " << a + b << std::endl; // write into the output file stream
-
-	if(!file.eof()) { //check if the file has ended
-		std::cout << "The file contains more data after the two integers!" << std::endl;
-	}
-
-	file.close();
-}
-```
-
-- (istream) [get](https://en.cppreference.com/w/cpp/io/basic_istream/get) - функция, която чете следващия character в потока.
-- (ostream) [put](https://en.cppreference.com/w/cpp/io/basic_ostream/put) - функция, която поставя на следваща позиция character в потока.
-- ifstream или istream - съдържа get указател, който реферира елемента, който ще се прочете при следващата входна операция.
-- ofstream или ostream - съдържа put указател, който реферира мястото, където ще се запише следващият елемент.
-- put и get не са [форматирани](https://www.geeksforgeeks.org/unformatted-input-output-operations-in-cpp/) за разлика от operator<< и operator>>, тоест не пропускат whitespaces и др.
----
-
 
 ```plaintext
                  ios
@@ -157,6 +67,26 @@ int main() {
 
 В себе си `fstream` съдържа `един` **get** и **put** указател, като при входна операция, след изходна, трябва да се прави синхронизация на потока: `flush() <=> seekg(tellg())`
 
+
+
+## Основно правило
+**Потоците НЕ се копират.**  
+Винаги се подават **по референция**.
+В стандарта на C++ **копирането на потоци е забранено**.
+Класовете `iostream` имат изтрит копи-конструктор (deleted copy constructor). Ако се опитате да подадете поток без `&`, кодът просто няма да се компилира.
+
+---
+
+### 1. Подаване на `ifstream` (четене)
+
+```cpp
+#include <fstream>
+
+void readData(std::ifstream& ifs) {
+    int x;
+    ifs >> x;   // чете от файла
+}
+```
 ## Форматиран вход и изход
 - **Форматиран вход:** `<Поток за вход> >> <Обект>`
 - **Форматиран изход:** `<Поток за изход> << <Обект>`
@@ -249,6 +179,98 @@ std::ofstream ofs(<file_name>, std::ios::out | std::ios::app);
 | ``.good() ``                                                     | Всички операции са изпълнени успешно.                                       |
 | ``.clear()``                                                     | Изчиства състоянието на потока (Вече good() ще върне истина).               |
 | [``.eof()``](https://en.cppreference.com/w/cpp/io/basic_ios/eof) | Достигнат е края на файла.
+
+
+### Работа с поток за вход от файл ([ifstream](https://en.cppreference.com/w/cpp/io/basic_ifstream))
+
+Пример за четене от файл!
+
+```c++
+#include <iostream>
+#include <fstream>
+
+constexpr char FILE_NAME[] = "myFile.txt";
+
+int main() {
+	std::ifstream file(FILE_NAME); // create input file stream associated with myFile.txt
+
+	if (!file.is_open()) {
+		std::cout << "Error!" << std::endl;
+		return -1;
+	}
+
+	int a, b;
+	file >> a >> b;
+
+	file.close();
+}
+```
+
+Пример за прочитане на цялото съдържание файл:
+
+```c++
+#include <iostream>
+#include <fstream>
+
+constexpr int BUFF_SIZE = 1024;
+constexpr char FILE_NAME[] = "myFile.txt";
+
+int main() {
+	std::ifstream file(FILE_NAME);
+
+	if (!file.is_open()) {
+		std::cout << "Error!" << std::endl;
+		return -1;
+	}
+
+	while (!file.eof()) {
+		char buff[BUFF_SIZE];
+		file.getline(buff, BUFF_SIZE);
+
+		//do something with the line
+		std::cout << buff << std::endl;
+	}
+
+	file.close();
+}
+```
+
+### Работа с поток за изход към файл ([ofstream](https://en.cppreference.com/w/cpp/io/basic_ofstream))
+
+```c++
+#include <iostream>
+#include <fstream>
+
+constexpr char FILE_NAME[] = "myFile.txt";
+
+int main() {
+	std::ofstream file(FILE_NAME);  // create output file stream associated with myFile.txt
+
+	if (!file.is_open()) {
+		std::cout << "Error!" << std::endl;
+		return -1;
+	}
+
+	int a = 3;
+	int b = 10;
+
+	file << a << " " << b << " " << a + b << std::endl; // write into the output file stream
+
+	if(!file.eof()) { //check if the file has ended
+		std::cout << "The file contains more data after the two integers!" << std::endl;
+	}
+
+	file.close();
+}
+```
+
+- (istream) [get](https://en.cppreference.com/w/cpp/io/basic_istream/get) - функция, която чете следващия character в потока.
+- (ostream) [put](https://en.cppreference.com/w/cpp/io/basic_ostream/put) - функция, която поставя на следваща позиция character в потока.
+- ifstream или istream - съдържа get указател, който реферира елемента, който ще се прочете при следващата входна операция.
+- ofstream или ostream - съдържа put указател, който реферира мястото, където ще се запише следващият елемент.
+- put и get не са [форматирани](https://www.geeksforgeeks.org/unformatted-input-output-operations-in-cpp/) за разлика от operator<< и operator>>, тоест не пропускат whitespaces и др.
+---
+
 
 
 # Управление на грешки в файловите потоци в C++ (`fstream`)
