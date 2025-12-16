@@ -253,7 +253,6 @@ std::ofstream ofs(<file_name>, std::ios::out | std::ios::app);
 | ``.clear()``                                                     | Изчиства състоянието на потока (Вече good() ще върне истина).               |
 | [``.eof()``](https://en.cppreference.com/w/cpp/io/basic_ios/eof) | Достигнат е края на файла.
 
-                                                  |
 
 # Управление на грешки в файловите потоци в C++ (`fstream`)
 
